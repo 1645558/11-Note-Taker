@@ -7,22 +7,27 @@ const { uuid } = require('./Develop/helpers/uuid.js');
 const app = express();
 const PORT = 3001;
 
+//middleware
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static('./Develop/public'));
 
+//get index.html file
 app.get('/', (req, res) =>
     res.sendFile(path.join(__dirname, '/Develop/public/index.html'))
 );
 
+//get notes.html file
 app.get('/notes', (req, res) =>
     res.sendFile(path.join(__dirname, '/Develop/public/notes.html'))
 );
 
+//get info from db.json
 app.get('/api/notes', (req, res) => {
     return res.json(notes);
 });
 
+//post info added to db.json
 app.post('/api/notes', (req, res) => {
     console.info(`${req.method} request received to add a notes`);
 
