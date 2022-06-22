@@ -24,6 +24,7 @@ app.get('/notes', (req, res) =>
 
 //get info from db.json
 app.get('/api/notes', (req, res) => {
+    console.info(`${req.method} request received to add a notes`);
     return res.json(notes);
 });
 
