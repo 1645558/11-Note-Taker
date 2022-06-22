@@ -4,17 +4,6 @@ let saveNoteBtn;
 let newNoteBtn;
 let noteList;
 
-const fs = require('fs');
-const express = require('express');
-const path = require('path');
-const notes = require('./db/db')
-const uuid = require('./helpers/uuid.js');
-
-const app = express();
-
-app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
-
 if (window.location.pathname === '/notes') {
   noteTitle = document.querySelector('.note-title');
   noteText = document.querySelector('.note-textarea');
@@ -35,25 +24,6 @@ const hide = (elem) => {
 
 // activeNote is used to keep track of the note in the textarea
 let activeNote = {};
-
-app.get('/notes', (req, res) =>
-res.sendFile(path.join(__dirname, '/public/notes.html'))
-);
-
-app.get('/', (req, res) =>
-res.sendFile(path.join(__dirname, '/public/index.html'))
-);
-
-app.get('/api/notes', (req, res) => {
-  console.info(`${req.method} request received to get notes`);
-
-  return res.json(notes);
-});
-
-app.post('/api/notes', (req, res) => {
-  // Log that a POST request was received
-  console.info(`${req.method} request received to add a notes`);
-});
 
 const getNotes = () =>
   fetch('/api/notes', {
